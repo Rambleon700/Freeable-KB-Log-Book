@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="freeable-design-standard" content="impeccable-v1">
+  <meta name="sleeksite-template" content="trusted-service">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1769AA">
+  <title>History — BellLog</title>
+  <meta name="description" content="Review your kettlebell workouts, training volume, calories and daily health history in BellLog.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#edf3f8;--surface:#fff;--ink:#102a43;--muted:#64788a;--accent:#1769aa;--accent-dark:#10558e;--gold:#d5a643;--line:#d4e0ea;--soft:#e3eef7;--danger:#b4433b;--radius:16px;--shadow:0 14px 38px rgba(16,42,67,.08)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Source Sans 3",sans-serif}
+    button,input,select{font:inherit}
+    button,a,select,input{transition:border-color .18s,background .18s,color .18s,transform .18s}
+    a{color:inherit}
+    :focus-visible{outline:3px solid rgba(70,139,199,.65);outline-offset:3px}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+    header{background:rgba(237,243,248,.95);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+    nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{text-decoration:none;font:700 21px "Sora";display:flex;align-items:center;gap:10px}
+    .brand-mark{width:32px;height:32px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:#fff}
+    .brand-mark svg{width:20px}
+    .links{display:flex;align-items:center;gap:26px}
+    .links a{text-decoration:none;font-weight:600;color:#435f76}
+    .links a:hover,.links a[aria-current="page"]{color:var(--accent)}
+    .links a[aria-current="page"]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:7px}
+    .nav-cta,.primary,.secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:11px 17px;font-weight:600;text-decoration:none;cursor:pointer}
+    .nav-cta,.primary{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+    .nav-cta:hover,.primary:hover{background:var(--accent-dark);transform:translateY(-1px)}
+    .secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+    .secondary:hover{border-color:var(--accent);color:var(--accent)}
+    h1,h2,h3{font-family:"Sora";line-height:1.15;margin:0}
+    .page-head{padding:58px 0 30px}
+    .head-row{display:flex;justify-content:space-between;align-items:end;gap:32px}
+    h1{font-size:clamp(38px,5vw,58px);letter-spacing:-.04em}
+    .intro{font-size:19px;color:#536d82;max-width:620px;margin:15px 0 0}
+    .head-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .filters{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;grid-template-columns:1fr 1fr 1.4fr auto;gap:14px;align-items:end;box-shadow:0 8px 24px rgba(16,42,67,.04)}
+    label{display:block;color:#4e687c;font-size:13px;font-weight:600;margin-bottom:6px}
+    input,select{width:100%;height:43px;border:1px solid #c8d7e3;border-radius:8px;background:#fff;color:var(--ink);padding:0 11px}
+    input:hover,select:hover{border-color:#91b4d1}
+    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 36px}
+    .metric{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+    .metric small{display:block;color:var(--muted);font-weight:600}
+    .metric strong{display:block;font:600 28px "Sora";margin-top:7px}
+    .metric span{font-size:13px;color:var(--accent)}
+    .history-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.75fr);gap:18px;padding-bottom:72px}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+    .panel-head{padding:21px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .panel-head h2{font-size:20px}
+    .result-count{color:var(--muted);font-size:14px}
+    .day{border-bottom:1px solid var(--line)}
+    .day:last-child{border:0}
+    .day-title{padding:17px 22px;background:#f6f9fc;display:flex;justify-content:space-between;gap:16px;align-items:center}
+    .day-title h3{font-size:16px}
+    .day-title span{color:var(--muted);font-size:14px}
+    .entry{display:grid;grid-template-columns:minmax(160px,1fr) 90px 90px 86px 38px;align-items:center;gap:12px;padding:15px 22px;border-top:1px solid #e7eef4}
+    .entry:first-of-type{border-top:0}
+    .exercise{font-weight:600}
+    .entry small{color:var(--muted);display:block}
+    .num{text-align:right;font-weight:600}
+    .remove{border:0;background:transparent;color:var(--muted);cursor:pointer;padding:6px;border-radius:6px}
+    .remove:hover{color:var(--danger);background:#faeeee}
+    .empty{padding:48px 24px;text-align:center}
+    .empty h3{font-size:19px}
+    .empty p{color:var(--muted);margin:8px auto 18px;max-width:360px}
+    .side{display:grid;gap:18px;align-content:start}
+    .chart{padding:22px}
+    .chart h2{font-size:19px}
+    .chart-note{color:var(--muted);font-size:14px;margin:5px 0 22px}
+    .bars{height:190px;border-bottom:1px solid var(--line);display:flex;align-items:end;gap:9px;padding-top:12px}
+    .bar-wrap{height:100%;flex:1;display:flex;align-items:end;position:relative}
+    .bar{width:100%;background:var(--accent);border-radius:5px 5px 0 0;min-height:8px}
+    .bar.gold{background:var(--gold)}
+    .bar-wrap span{position:absolute;bottom:-25px;width:100%;text-align:center;color:var(--muted);font-size:11px}
+    .chart-foot{margin-top:36px;display:flex;gap:17px;color:var(--muted);font-size:13px}
+    .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:5px}
+    .dot.gold{background:var(--gold)}
+    .wellness-list{margin-top:18px}
+    .wellness-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:13px 0;border-top:1px solid var(--line)}
+    .wellness-row span{color:var(--muted)}
+    .wellness-row strong{font-weight:600}
+    .energy{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .energy .chart-note{color:#b8c9d7}
+    .balance{font:600 33px "Sora";color:#f0c65c;margin:14px 0 2px}
+    .notice{font-size:13px;color:#b8c9d7;margin:0}
+    footer{padding:40px 0 30px}
+    .footer-row{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:26px;color:var(--muted)}
+    .footer-row nav{height:auto}
+    .footer-row a{margin-left:20px}
+    @media(max-width:900px){.head-row{align-items:start}.filters{grid-template-columns:1fr 1fr}.history-grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:680px){.wrap{width:min(100% - 26px,1180px)}.links>a:not(.nav-cta){display:none}.page-head{padding-top:36px}.head-row,.footer-row{display:block}.head-actions{margin-top:20px}.filters{grid-template-columns:1fr}.summary{grid-template-columns:1fr 1fr}.metric{padding:16px}.metric strong{font-size:23px}.entry{grid-template-columns:1fr auto auto;padding:14px 17px}.entry .volume{display:none}.entry .calories{display:none}.day-title,.panel-head{padding-left:17px;padding-right:17px}.footer-row nav{display:block;margin-top:14px}.footer-row a{margin:0 16px 0 0}}
+    @media(max-width:420px){.summary{grid-template-columns:1fr}.nav-cta{padding:9px 12px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<header>
+  <nav class="wrap" aria-label="Main navigation">
+    <a class="brand" href="/" aria-label="BellLog home"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 9a4 4 0 1 1 8 0"/><path d="M6 10h12l2 10H4L6 10Z"/></svg></span>BellLog</a>
+    <div class="links">
+      <a href="/history" aria-current="page">History</a>
+      <a href="/insights">Insights</a>
+      <a href="/profile">Profile</a>
+      <a class="nav-cta" href="/#log">Log workout</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap head-row">
+      <div>
+        <h1>Training history</h1>
+        <p class="intro">Review each session alongside daily movement and energy. Filter the record to find the exercises and periods that matter.</p>
+      </div>
+      <div class="head-actions">
+        <a class="secondary" href="/insights">View insights</a>
+        <a class="primary" href="/#log">Log exercise</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="filter-title">
+    <h2 id="filter-title" style="position:absolute;left:-9999px">Filter training history</h2>
+    <form class="filters" id="filters">
+      <div><label for="period">Period</label><select id="period"><option value="all">All recorded days</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select></div>
+      <div><label for="weight">Kettlebell</label><select id="weight"><option value="all">All weights</option><option value="8">8 kg</option><option value="12">12 kg</option><option value="18">18 kg</option></select></div>
+      <div><label for="search">Exercise</label><input id="search" type="search" placeholder="Search swings, squats, presses…"></div>
+      <button class="secondary" id="clear" type="button">Clear filters</button>
+    </form>
+
+    <div class="summary" aria-label="Filtered history summary">
+      <article class="metric"><small>Sessions</small><strong id="sessions">4</strong><span>in selected period</span></article>
+      <article class="metric"><small>Total volume</small><strong id="volume">4,812 kg</strong><span>weight × sets × reps</span></article>
+      <article class="metric"><small>Training calories</small><strong id="calories">241 kcal</strong><span>estimated expenditure</span></article>
+      <article class="metric"><small>Total reps</small><strong id="reps">372</strong><span>across 8 exercises</span></article>
+    </div>
+
+    <div class="history-grid">
+      <section class="panel" aria-labelledby="sessions-title">
+        <div class="panel-head"><h2 id="sessions-title">Session log</h2><span class="result-count" id="resultCount">8 entries</span></div>
+        <div id="historyList" aria-live="polite"></div>
+      </section>
+
+      <aside class="side" aria-label="History overview">
+        <section class="panel chart">
+          <h2>Volume by session</h2>
+          <p class="chart-note">Kilograms moved across your recent training days.</p>
+          <div class="bars" id="chart" aria-label="Bar chart of training volume"></div>
+          <div class="chart-foot"><span><i class="dot"></i>Volume</span><span><i class="dot gold"></i>Latest session</span></div>
+        </section>
+
+        <section class="panel chart">
+          <h2>Latest daily record</h2>
+          <p class="chart-note">Wednesday, 3 September</p>
+          <div class="wellness-list">
+            <div class="wellness-row"><span>Steps</span><strong>7,840</strong></div>
+            <div class="wellness-row"><span>Heart points</span><strong>34</strong></div>
+            <div class="wellness-row"><span>Sleep</span><strong>7.4 hours</strong></div>
+            <div class="wellness-row"><span>Estimated BMR</span><strong>1,718 kcal</strong></div>
+          </div>
+        </section>
+
+        <section class="panel chart energy">
+          <h2>Energy balance</h2>
+          <p class="chart-note">Spent minus recorded intake on the latest day.</p>
+          <div class="balance">+29 kcal</div>
+          <p class="notice">2,209 kcal spent · 2,180 kcal intake. Estimates are intended for tracking trends.</p>
+        </section>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 BellLog. Estimates are for general fitness guidance, not medical advice.</span>
+    <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/history">History</a><a href="/insights">Insights</a><a href="/profile">Profile</a></nav>
+  </div>
+</footer>
+
+<script>
+const entries=[
+ {date:"2026-09-03",label:"Wednesday, 3 September",name:"Two-hand swing",weight:12,sets:4,reps:12,cals:29},
+ {date:"2026-09-03",label:"Wednesday, 3 September",name:"Goblet squat",weight:18,sets:4,reps:12,cals:43},
+ {date:"2026-09-01",label:"Monday, 1 September",name:"Clean & press",weight:12,sets:4,reps:10,cals:24},
+ {date:"2026-09-01",label:"Monday, 1 September",name:"Reverse lunge",weight:12,sets:4,reps:12,cals:29},
+ {date:"2026-08-29",label:"Friday, 29 August",name:"One-hand swing",weight:18,sets:4,reps:12,cals:43},
+ {date:"2026-08-29",label:"Friday, 29 August",name:"Turkish get-up",weight:8,sets:4,reps:6,cals:10},
+ {date:"2026-08-27",label:"Wednesday, 27 August",name:"Deadlift",weight:18,sets:4,reps:12,cals:43},
+ {date:"2026-08-27",label:"Wednesday, 27 August",name:"Strict press",weight:12,sets:4,reps:10,cals:20}
+];
+let active=[...entries];
+const $=s=>document.querySelector(s);
+function render(){
+ const grouped={};
+ active.forEach(e=>(grouped[e.date]??=[]).push(e));
+ $("#historyList").innerHTML=active.length?Object.values(grouped).map(group=>{
+   const v=group.reduce((n,e)=>n+e.weight*e.sets*e.reps,0);
+   return `<article class="day"><header class="day-title"><h3>${group[0].label}</h3><span>${v.toLocaleString()} kg · ${group.reduce((n,e)=>n+e.cals,0)} kcal</span></header>${group.map(e=>`<div class="entry"><div><span class="exercise">${e.name}</span><small>${e.weight} kg kettlebell</small></div><span class="num">${e.sets} × ${e.reps}</span><span class="num volume">${(e.weight*e.sets*e.reps).toLocaleString()} kg</span><span class="num calories">${e.cals} kcal</span><button class="remove" type="button" aria-label="Remove ${e.name}" data-date="${e.date}" data-name="${e.name}">Remove</button></div>`).join("")}</article>`
+ }).join(""):`<div class="empty"><h3>No matching exercises</h3><p>Try another weight, period or exercise name.</p><button class="secondary" type="button" id="emptyClear">Clear filters</button></div>`;
+ const dates=new Set(active.map(e=>e.date));
+ const vol=active.reduce((n,e)=>n+e.weight*e.sets*e.reps,0);
+ $("#sessions").textContent=dates.size;
+ $("#volume").textContent=vol.toLocaleString()+" kg";
+ $("#calories").textContent=active.reduce((n,e)=>n+e.cals,0).toLocaleString()+" kcal";
+ $("#reps").textContent=active.reduce((n,e)=>n+e.sets*e.reps,0).toLocaleString();
+ $("#resultCount").textContent=active.length+" entr"+(active.length===1?"y":"ies");
+ renderChart(grouped);
+ $("#emptyClear")?.addEventListener("click",clearFilters);
+}
+function renderChart(grouped){
+ const data=Object.values(grouped).reverse().map(g=>({label:g[0].date.slice(5).replace("-","/"),value:g.reduce((n,e)=>n+e.weight*e.sets*e.reps,0)}));
+ const max=Math.max(...data.map(d=>d.value),1);
+ $("#chart").innerHTML=data.length?data.map((d,i)=>`<div class="bar-wrap" title="${d.value.toLocaleString()} kg"><i class="bar ${i===data.length-1?"gold":""}" style="height:${Math.max(8,d.value/max*100)}%"></i><span>${d.label}</span></div>`).join(""):`<p class="chart-note">No sessions to chart.</p>`;
+}
+function filter(){
+ const weight=$("#weight").value,q=$("#search").value.trim().toLowerCase(),period=$("#period").value;
+ const cutoff=period==="all"?null:new Date(new Date("2026-09-03").getTime()-(+period-1)*86400000);
+ active=entries.filter(e=>(weight==="all"||e.weight===+weight)&&(!q||e.name.toLowerCase().includes(q))&&(!cutoff||new Date(e.date)>=cutoff));
+ render();
+}
+function clearFilters(){$("#period").value="all";$("#weight").value="all";$("#search").value="";filter()}
+$("#filters").addEventListener("input",filter);
+$("#filters").addEventListener("submit",e=>e.preventDefault());
+$("#clear").addEventListener("click",clearFilters);
+$("#historyList").addEventListener("click",e=>{
+ if(!e.target.matches(".remove"))return;
+ const i=entries.findIndex(x=>x.date===e.target.dataset.date&&x.name===e.target.dataset.name);
+ if(i>-1)entries.splice(i,1);
+ filter();
+});
+render();
+</script>
+</body>
+</html>
